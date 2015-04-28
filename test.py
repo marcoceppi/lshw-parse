@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 
 import json
-from parse import Hardware
+from parse import Profile
 
 with open('output.sample') as f:
     a = json.loads(f.read())
 
-h = Hardware(a['lshw'])
+prof = Profile(a)
 
-for l in h.display():
-    print(l)
+for k in sorted(prof.hardware.keys()):
+  print("%s: %s" % (k, prof.hardware[k]))
 
+print(json.dumps(prof.packages, indent=2))
